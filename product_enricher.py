@@ -580,8 +580,10 @@ def enrich_product(product_name, spec_info, categories):
 
     data = clean_variety(product_name, data)
 
+    # 品牌归一化：HY/Encore统一为"安酷"，但仅当品牌字段本身是Encore Azaleas相关时才转换
+    # 不能仅因为商品名含HY-前缀就转换
     brand = data.get('品牌', '')
-    if brand and brand.strip() in ('HY', 'Encore Azaleas（安酷杜鹃）', 'Encore Azaleas', 'HY-'):
+    if brand and brand.strip() in ('Encore Azaleas（安酷杜鹃）', 'Encore Azaleas'):
         data['品牌'] = '安酷'
 
     # 统一品牌：去除"无"、"null"等无效值
