@@ -581,8 +581,16 @@ def enrich_product(product_name, spec_info, categories):
     if brand and brand.strip() in ('HY', 'Encore Azaleas（安酷杜鹃）', 'Encore Azaleas', 'HY-'):
         data['品牌'] = '安酷'
 
+    # 统一品牌：去除"无"等无效值
+    if data.get('品牌') in ('无', '暂无', '无品牌', '未知'):
+        data['品牌'] = ''
+
     variety = data.get('品种', '')
     if variety and ('科' in variety or '属' in variety or len(variety) > 20):
+        data['品种'] = ''
+
+    # 统一品种：去除"无"等无效值
+    if data.get('品种') in ('无', '暂无', '无品种', '未知'):
         data['品种'] = ''
 
     return data
