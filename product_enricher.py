@@ -5,7 +5,6 @@ Product Enricher - 商品信息补全核心模块
 
 使用方法:
     单条: python product_enricher.py <商品名称> [规格信息]
-    批量: 由 batch_enrich.py 调用 enrich_product() 函数
 
 输出字段:
     一级分类 / 二级分类 / 三级分类 / 四级分类 / 品牌 / 品类 / 品种 / 百科信息
