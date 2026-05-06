@@ -1,0 +1,23 @@
+{
+    "name": "shopping/product-enricher",
+    "description": "商品信息补全工具 - 批量根据商品名补全4级分类、品牌、品类、品种、百科信息",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "phpoffice/phpspreadsheet": "^1.29"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "沈飞"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "product_enricher.php"
+        ]
+    }
+}
