@@ -468,7 +468,7 @@ def clean_variety(product_name, data):
         if variety:
             pure_plant_types = ['铁线莲', '葡萄', '杜鹃', '枫树', '冬青',
                                '绣球', '月季', '玫瑰', '草莓', '茶花', '三角梅',
-                               '草本', '灌木', '乔木', '藤本']
+                               '蓝莓', '草本', '灌木', '乔木', '藤本', '风雨兰']
             if variety.strip() in pure_plant_types:
                 data['品种'] = ''
 
@@ -477,6 +477,9 @@ def clean_variety(product_name, data):
             if keyword in name_str:
                 data['品类'] = cat
                 break
+        # 品种如果是纯植物类型名，清空（防止品类当品种）
+        if variety and variety.strip() in pure_plant_types:
+            data['品种'] = ''
 
     return data
 
@@ -581,16 +584,18 @@ def enrich_product(product_name, spec_info, categories):
     if brand and brand.strip() in ('HY', 'Encore Azaleas（安酷杜鹃）', 'Encore Azaleas', 'HY-'):
         data['品牌'] = '安酷'
 
-    # 统一品牌：去除"无"等无效值
-    if data.get('品牌') in ('无', '暂无', '无品牌', '未知'):
+    # 统一品牌：去除"无"、"null"等无效值
+    brand_val = data.get('品牌')
+    if brand_val is None or brand_val in ('无', '暂无', '无品牌', '未知', 'null', 'None'):
         data['品牌'] = ''
 
     variety = data.get('品种', '')
     if variety and ('科' in variety or '属' in variety or len(variety) > 20):
         data['品种'] = ''
 
-    # 统一品种：去除"无"等无效值
-    if data.get('品种') in ('无', '暂无', '无品种', '未知'):
+    # 统一品种：去除"无"、"null"等无效值
+    variety_val = data.get('品种')
+    if variety_val is None or variety_val in ('无', '暂无', '无品种', '未知', 'null', 'None'):
         data['品种'] = ''
 
     return data
